@@ -2,6 +2,9 @@ import ActionTypes from './ActionTypes';
 
 class CityStore {
 
+    // dispatch token for managing dependencies between different stores
+    static dispatchToken;
+
     constructor(dispatcher) {
         // internal state
         this._selectedCityIndex = 0;
@@ -13,8 +16,8 @@ class CityStore {
         // to access state variables from dispatcher register callback-method
         let storeContext = this;
 
-        // register self at dispatcher
-        dispatcher.register(function (payload) {
+        // register self at dispatcher and set dispatch token
+        CityStore.dispatchToken = dispatcher.register(function (payload) {
 
             if (payload.actionType === ActionTypes.NEXT_CITY) {
 
